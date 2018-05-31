@@ -1,0 +1,26 @@
+<html>
+	<body>
+		<form action="addValutaView" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit">Aggiungi Moneta</button>
+		</form>
+		{% if listaMonete %}
+		<table>
+			 <tr>
+ 			<th>Nome Valuta</th> 
+ 			<th>Simbolo</th>
+			<th>Descrizione</th>
+			<th>Elimina</th>
+			{% for moneta in listaMonete %}
+				<tr>
+					<td>{{ moneta.Tipo }}</td>
+					<td>{{ moneta.Simbolo }}</td>
+					<td>{{ moneta.Descrizione }}</td>
+					<td><form action="eliminaMoneta/tipo=a"  method="get"><button type="submit"}>Elimina</button></td>			
+				</tr>
+			{% endfor %}		
+		</table>
+		{% endif %}
+	</body>
+</html>

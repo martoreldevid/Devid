@@ -1,0 +1,8 @@
+<html>
+		<form action="doAddValuta">
+			<input type="char" name="Simbolo" placeholder="Simbolo moneta" maxlength="1" required/>
+			<input type="text" name="Descrizione" placeholder="Descrizione" maxlength="45"/>
+			<button type="submit">Aggiungi Moneta</button>
+		</form>
+	</body>
+</html>
