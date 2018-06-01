@@ -7,7 +7,7 @@ from django.template import loader
 from .forms import addValutaForm,eliminaMonetaForm
 
 from CDC.models import TipoMoneta
-
+from django.db import IntegrityError
 
 def index(request):
 	template = loader.get_template('CDC/index.html')
@@ -28,9 +28,14 @@ def addValutaView(request):
 			descrizione = form.cleaned_data['descrizione']
 
 			moneta=TipoMoneta(Tipo=tipo,Simbolo=simbolo,Descrizione=descrizione)
-			moneta.save()
+			try:
+				moneta.save()
+			except IntegrityError:
+				pass
+				
+			request.method="GET"
 
-			return HttpResponseRedirect('/')
+			return addValutaView(request)
 	
 	else:
 
@@ -47,7 +52,10 @@ def addValutaView(request):
 
 def eliminaMoneta(request):
 
-	tipo = request.GET.get('tipo', None)	
-	monete = TipoMoneta.objects.filter(Tipo=tipo).delete()
+	varTipo = request.POST.get('tipo')
+		
+	TipoMoneta.objects.filter(Tipo=varTipo).delete()
+
+	request.method="GET"
 
 	return addValutaView(request)

@@ -17,7 +17,7 @@
 					<td>{{ moneta.Tipo }}</td>
 					<td>{{ moneta.Simbolo }}</td>
 					<td>{{ moneta.Descrizione }}</td>
-					<td><form action="eliminaMoneta" ><button type="submit" value={{ moneta.Tipo}} id="tipo">Elimina</button></form></td>			
+					<td><form action="eliminaMoneta" method="POST" > {% csrf_token %} <button type="submit" value="{{moneta.Tipo}}" name="tipo">Elimina</button></form></td>			
 				</tr>
 			{% endfor %}		
 		</table>

@@ -50,7 +50,7 @@ class TassoInteresse(models.Model):
 
 
 class TipoMoneta(models.Model):
-	Tipo = models.CharField(max_length=20)
+	Tipo = models.CharField(max_length=20,unique=True)
 	Simbolo = models.CharField(max_length=1)
 	Descrizione = models.CharField(max_length=45)
 
