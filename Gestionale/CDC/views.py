@@ -46,18 +46,8 @@ def addValutaView(request):
 		return render(request, 'CDC/addValutaView.html',context)
 
 def eliminaMoneta(request):
-	
-	if request.method == 'GET':
 
-		form = eliminaMonetaForm(request.POST)
-
-		if form.is_valid():
-
-			tipo = form.cleaned_data['tipo']
-			monete = TipoMoneta.objects.filter(Tipo=tipo).delete()
-		
-		endif
-
-	endif
+	tipo = request.GET.get('tipo', None)	
+	monete = TipoMoneta.objects.filter(Tipo=tipo).delete()
 
 	return addValutaView(request)

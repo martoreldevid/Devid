@@ -17,7 +17,7 @@
 					<td>{{ moneta.Tipo }}</td>
 					<td>{{ moneta.Simbolo }}</td>
 					<td>{{ moneta.Descrizione }}</td>
-					<td><form action="eliminaMoneta/tipo=a"  method="get"><button type="submit"}>Elimina</button></td>			
+					<td><form action="eliminaMoneta" ><button type="submit" value={{ moneta.Tipo}} id="tipo">Elimina</button></form></td>			
 				</tr>
 			{% endfor %}		
 		</table>
