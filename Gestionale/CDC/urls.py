@@ -7,4 +7,5 @@ urlpatterns = [
 	path('index',views.index,name='index'),
 	path('addValutaView',views.addValutaView,name='addValutaView'),
 	path('eliminaMoneta',views.eliminaMoneta,name='eliiminaMoneta'),
+	path('addCCIAAView', views.addCCIAAView,name='addCCIAAView'),
 ]

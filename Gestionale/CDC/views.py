@@ -6,7 +6,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
 from .forms import addValutaForm,eliminaMonetaForm
 
-from CDC.models import TipoMoneta
+from CDC.models import TipoMoneta,CCIA
 from django.db import IntegrityError
 
 def index(request):
@@ -59,3 +59,39 @@ def eliminaMoneta(request):
 	request.method="GET"
 
 	return addValutaView(request)
+
+
+
+def addCCIAAView(request):
+	
+	if request.method == 'POST':
+
+		form = addCCIAAForm(request.POST)
+		
+		if form.is_valid():		
+			#PERFORM DATA
+
+			sede  = form.cleaned_data['sede']
+			descrizione = form.cleaned_data['descrizione']
+
+			cciaa = CCIA(Sede=sede,Descrizione=descrizione)
+			try:
+				cciaa.save()
+			except IntegrityError:
+				pass
+				
+			request.method="GET"
+
+			return addCCIAAView(request)
+	
+	else:
+
+		form = addCCIAAForm()
+	
+		listacciaa = CCIA.objects.all()
+		context = {
+			'listaCCIAA': listacciaa,
+			'form':form,		
+		}
+		
+		return render(request, 'CDC/addCCIAAView.html',context)

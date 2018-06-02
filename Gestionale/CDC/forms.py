@@ -7,3 +7,10 @@ class addValutaForm(forms.Form):
 
 class eliminaMonetaForm(forms.Form):
 	tipo = forms.CharField(label='Tipo', max_length=20)
+
+
+
+class addCCIAAForm(forms.Form):
+	sede = forms.CharField(label='Sede', max_length=45)
+	descrizione = forms.CharField(label='Descrizione', max_length=45)
+
