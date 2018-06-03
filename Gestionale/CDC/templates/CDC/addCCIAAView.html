@@ -5,17 +5,17 @@
 			{{ form }}
 			<button type="submit">Aggiungi CCIAA</button>
 		</form>
-		{% if listacciaa %}
+		{% if listaCCIAA %}
 		<table>
 			 <tr>
  			<th>Nome CCIAA</th>
 			<th>Descrizione</th>
 			<th>Elimina</th>
-			{% for cciaa in listacciaa %}
+			{% for cciaa in listaCCIAA %}
 				<tr>
 					<td>{{ cciaa.Sede }}</td>
 					<td>{{ cciaa.Descrizione }}</td>
-					<td><form action="eliminaCCIAA" method="POST" > {% csrf_token %} <button type="submit" value="{{cciaa.Sede}}" name="tipo">Elimina</button></form></td>			
+					<td><form action="eliminaCCIAA" method="POST" > {% csrf_token %} <button type="submit" value="{{cciaa.Sede}}" name="sede">Elimina</button></form></td>			
 				</tr>
 			{% endfor %}		
 		</table>

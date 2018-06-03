@@ -8,4 +8,5 @@ urlpatterns = [
 	path('addValutaView',views.addValutaView,name='addValutaView'),
 	path('eliminaMoneta',views.eliminaMoneta,name='eliiminaMoneta'),
 	path('addCCIAAView', views.addCCIAAView,name='addCCIAAView'),
+	path('eliminaCCIAA', views.eliminaCCIAA,name='eliminaCCIAA'),
 ]

@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
-from .forms import addValutaForm,eliminaMonetaForm
+from .forms import addValutaForm,eliminaMonetaForm,addCCIAAForm
 
 from CDC.models import TipoMoneta,CCIA
 from django.db import IntegrityError
@@ -88,10 +88,22 @@ def addCCIAAView(request):
 
 		form = addCCIAAForm()
 	
-		listacciaa = CCIA.objects.all()
+		listaCCIAA = CCIA.objects.all()
 		context = {
-			'listaCCIAA': listacciaa,
+			'listaCCIAA': listaCCIAA,
 			'form':form,		
 		}
 		
 		return render(request, 'CDC/addCCIAAView.html',context)
+
+
+def eliminaCCIAA(request):
+
+	varSede = request.POST.get('sede')
+		
+	CCIA.objects.filter(Sede=varSede).delete()
+
+	request.method="GET"
+
+	return addCCIAAView(request)
+
