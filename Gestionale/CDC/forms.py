@@ -46,5 +46,5 @@ class addPrestitoForm(forms.Form):
 	dataMandatoPagamento = forms.DateField(label='DataMandatoPagamento')
 	meseAnnoCedolino= forms.DateField(label='MeseAnnoCedolino')
 	InEssere = forms.BooleanField()
-	dataCessazione = models.DateField(label='DataCessazione')
+	dataCessazione = forms.DateField(label='DataCessazione')
 	
