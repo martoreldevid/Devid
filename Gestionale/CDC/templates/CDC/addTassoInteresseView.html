@@ -1,0 +1,30 @@
+
+<html>
+	<body>
+		<form action="addTassoInteresseView" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit">Aggiungi Tasso Interesse</button>
+		</form>
+		{% if listaTassi  %}
+		<table>
+			 <tr>
+ 			<th>Tipo</th>
+			<th>Percentuale</th>
+			<th>Inizio</th>
+			<th>Fine</th>
+			<th>Elimina</th>
+			{% for tasso in listaTassi %}
+				<tr>
+					<td>{{ tasso.Tipo }}</td>
+					<td>{{ tasso.Percentuale }}</td>
+					<td>{{ tasso.Inizio }}</td>
+					<td>{{ tasso.Percentuale }}</td>
+					<td><form action="eliminaTassoInteresse" method="POST" > {% csrf_token %} <button type="submit" value="{{tasso.Tipo}}" name="tipo">Elimina</button></form></td>			
+				</tr>
+			{% endfor %}		
+		</table>
+		{% endif %}
+	</body>
+</html>
+

@@ -1,0 +1,24 @@
+<html>
+	<body>
+		<form action="addTipoProvvedimentow" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit">Aggiungi Provvedimento</button>
+		</form>
+		{% if listaProvvedimento  %}
+		<table>
+			 <tr>
+ 			<th>Tipo</th>
+			<th>Descrizione</th>
+			<th>Elimina</th>
+			{% for provvedimento in listaProvvedimenti %}
+				<tr>
+					<td>{{ provvedimento.Tipo }}</td>
+					<td>{{ provvedimento.Descrizione }}</td>
+					<td><form action="eliminaTipoProvvedimento" method="POST" > {% csrf_token %} <button type="submit" value="{{provvedimento.Tipo}}" name="tipo">Elimina</button></form></td>			
+				</tr>
+			{% endfor %}		
+		</table>
+		{% endif %}
+	</body>
+</html>
