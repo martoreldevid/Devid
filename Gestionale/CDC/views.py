@@ -4,9 +4,9 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
-from .forms import *
+from .forms import addValutaForm,addCCIAAForm,addDipendenteForm,addRestituzioneForm,addMotPrestitoForm,addTassoInteresseForm,addTipoProvvedimentoForm
 
-from CDC.models import *
+from CDC.models import TipoMoneta,CCIA,Dipendente,Restituzione,MotPrestito,TassoInteresse,TipoProvvedimento
 from django.db import IntegrityError
 
 def index(request):
@@ -135,7 +135,7 @@ def addDipendenteView(request):
 	
 	else:
 
-		form = addDipenenteForm()
+		form = addDipendenteForm()
 	
 		listaDipendenti = Dipendente.objects.all()
 		context = {
@@ -282,7 +282,7 @@ def addTassoInteresseView(request):
 	
 		listaTassi = TassoInteresse.objects.all()
 		context = {
-			'listaTassiInteresse': listaTassiInteresse,
+			'listaTassiInteresse': listaTassi,
 			'form':form,		
 		}
 		
