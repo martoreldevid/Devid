@@ -4,9 +4,9 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
-from .forms import addValutaForm,eliminaMonetaForm,addCCIAAForm
+from .forms import *
 
-from CDC.models import TipoMoneta,CCIA,Dipendente
+from CDC.models import *
 from django.db import IntegrityError
 
 def index(request):
@@ -239,7 +239,7 @@ def addMotPrestitoView(request):
 		return render(request, 'CDC/addMotPrestitoView.html',context)
 
 
-def eliminaCCIAA(request):
+def eliminaMotPrestito(request):
 
 	varMot = request.POST.get('motivazione')
 		
@@ -248,3 +248,99 @@ def eliminaCCIAA(request):
 	request.method="GET"
 
 	return addMotPrestitoView(request)
+
+
+
+def addTassoInteresseView(request):
+	
+	if request.method == 'POST':
+
+		form = addTassoInteresseForm(request.POST)
+		
+		if form.is_valid():		
+			#PERFORM DATA
+
+			tipo = form.cleaned_data['tipo']
+			percentuale = form.cleaned_data['percentuale']
+			inizio = form.cleaned_data['inizio']
+			fine = form.cleaned_data['fine']
+
+			tasso = TassoInteresse(Tipo=tipo,Percentuale=percentuale,Inizio=inizio,Fine=fine)
+			
+			try:
+				tasso.save()
+			except IntegrityError:
+				pass
+				
+			request.method="GET"
+
+			return addTassoInteresseView(request)
+	
+	else:
+
+		form = addTassoInteresseForm()
+	
+		listaTassi = TassoInteresse.objects.all()
+		context = {
+			'listaTassiInteresse': listaTassiInteresse,
+			'form':form,		
+		}
+		
+		return render(request, 'CDC/addTassoInteresseView.html',context)
+
+
+def eliminaTassoInteresse(request):
+
+	varTipo = request.POST.get('tipo')
+		
+	TassoInteresse.objects.filter(Tipo=varTipo).delete()
+
+	request.method="GET"
+
+	return addTassoInteresseView(request)
+
+
+def addTipoProvvedimentoView(request):
+	
+	if request.method == 'POST':
+
+		form = addTipoProvvedimentoForm(request.POST)
+			
+		if form.is_valid():		
+			#PERFORM DATA
+
+			tipo  = form.cleaned_data['cf']
+			descrizione = form.cleaned_data['descrizione']
+			
+			tipoProvvedimento = TipoProvvedimento(Tipo=tipo,Descrizione=descrizione)
+			try:
+				tipoProvvedimento.save()
+			except IntegrityError:
+				pass
+				
+			request.method="GET"
+
+			return addDipendenteView(request)
+	
+	else:
+
+		form = addTipoProvvedimentoForm()
+	
+		listaProvvedimenti = TipoProvvedimento.objects.all()
+		context = {
+			'listaProvvedimenti': listaProvvedimenti,
+			'form':form,		
+		}
+		
+		return render(request, 'CDC/addTipoProvvedimentoView.html',context)
+
+
+def eliminaTipoProvvedimento(request):
+
+	varTipo = request.POST.get('tipo')
+		
+	TipoProvvedimento.objects.filter(Tipo=varTipo).delete()
+
+	request.method="GET"
+	
+	return addTipoProvvedimentoView(request)
