@@ -1,0 +1,25 @@
+
+<html>
+	<body>
+		<form action="addValutaView" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit">Aggiungi Metodo di Restituzione</button>
+		</form>
+		{% if listaRestituzioni %}
+		<table>
+			 <tr>
+ 			<th>Tipo</th> 
+ 			<th>Descrizione</th>
+			<th>Elimina</th>
+			{% for restituzione in listaRestituzioni %}
+				<tr>
+					<td>{{ restituzione.Tipo }}</td>
+					<td>{{ moneta.Descrizione }}</td>
+					<td><form action="eliminaRestituzione" method="POST" > {% csrf_token %} <button type="submit" value="{{restituzione.Tipo}}" name="tipo">Elimina</button></form></td>			
+				</tr>
+			{% endfor %}		
+		</table>
+		{% endif %}
+	</body>
+</html>

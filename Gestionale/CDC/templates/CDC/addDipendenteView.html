@@ -1,0 +1,25 @@
+<html>
+	<body>
+		<form action="addDipendenteView" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit">Aggiungi Dipendente</button>
+		</form>
+		{% if listaDipendenti %}
+		<table>
+			 <tr>
+ 			<th>CF</th>
+			<th>Cognome</th>
+			<th>Nome</th>
+			{% for dipendente in listaDipendenti %}
+				<tr>
+					<td>{{ dipendente.CF }}</td>
+					<td>{{ dipendente.Cognome }}</td>
+					<td>{{ dipendente.Nome }}</td>
+					<td><form action="eliminaDipendente" method="POST" > {% csrf_token %} <button type="submit" value="{{dipendente.CF}}" name="cf">Elimina</button></form></td>			
+				</tr>
+			{% endfor %}		
+		</table>
+		{% endif %}
+	</body>
+</html>

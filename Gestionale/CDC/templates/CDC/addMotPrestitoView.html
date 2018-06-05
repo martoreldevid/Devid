@@ -1,0 +1,25 @@
+
+<html>
+	<body>
+		<form action="addMotPrestitoView" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<button type="submit">Aggiungi Moneta</button>
+		</form>
+		{% if listaMotivazioni  %}
+		<table>
+			 <tr>
+ 			<th>Motivazione</th>
+			<th>Descrizione</th>
+			<th>Elimina</th>
+			{% for motivazione in listaMotivazioni %}
+				<tr>
+					<td>{{ motivazione.Motivazione }}</td>
+					<td>{{ motivazione.Descrizione }}</td>
+					<td><form action="eliminaMotPrestito" method="POST" > {% csrf_token %} <button type="submit" value="{{motivazione.Motivazione}}" name="motivazione">Elimina</button></form></td>			
+				</tr>
+			{% endfor %}		
+		</table>
+		{% endif %}
+	</body>
+</html>
