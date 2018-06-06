@@ -3,7 +3,16 @@
 		<form action="addTipoProvvedimentow" method="post">
 			{% csrf_token %}
 			{{ form }}
-			 
+			
+			<select name="cf">
+				{% for cf in listaCf %}
+
+					<option value="{{cf.CF}}">{{cf.CF}}</option>
+
+				{% endfor %}
+
+			</select>
+
 			<button type="submit">Aggiungi Anticipazione</button>
 		</form>
 		{% if listaProvvedimento  %}
