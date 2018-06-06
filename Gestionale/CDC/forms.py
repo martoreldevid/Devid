@@ -39,7 +39,8 @@ class addTipoProvvedimentoForm(forms.Form):
 	descrizione = forms.CharField(label='Descrizione', max_length=45) 
 
 class addPrestitoForm(forms.Form):
-	percentuale = forms.DecimalField(label='Numero', max_digits=10,decimal_places=0)
+	numero = forms.DecimalField(label='Numero', decimal_places=0)
+	percentuale = forms.DecimalField(label='Percentuale', max_digits=10,decimal_places=0)
 	dataProvvedimento = forms.DateField(label='DataProvvedimento')
 	ammontare = forms.DecimalField(label='Ammontare', max_digits=5, decimal_places=2) 
 	numeroMandato = forms.DecimalField(label='NumeroMandato',max_digits=10,decimal_places=0)

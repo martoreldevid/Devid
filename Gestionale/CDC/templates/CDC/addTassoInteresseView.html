@@ -3,6 +3,9 @@
 	<body>
 		<form action="addTassoInteresseView" method="post">
 			{% csrf_token %}
+			{% load widget_tweaks %}
+			{{form.id_inizio|attr:"type:date"}}
+			{{form.fine|attr:"type:date"}}
 			{{ form }}
 			<button type="submit">Aggiungi Tasso Interesse</button>
 		</form>

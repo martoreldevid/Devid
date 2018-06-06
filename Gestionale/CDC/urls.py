@@ -19,4 +19,6 @@ urlpatterns = [
 	path('eliminaTassoInteresse', views.eliminaTassoInteresse,name='eliminaTassoInteresse'),
 	path('addTipoProvvedimentoView', views.addTipoProvvedimentoView,name='addTipoProvvedimentoView'),
 	path('eliminaTipoProvvedimento', views.eliminaTipoProvvedimento,name='eliminaTipoProvvedimento'),
+	path('addPrestitoView', views.addPrestitoView,name='addPrestitoView'),
+	path('eliminaPrestito', views.eliminaPrestito,name='eliminaPrestito'),
 ]

@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['ElDiablo280.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
+	'widget_tweaks',
 	'CDC',
     'django.contrib.admin',
     'django.contrib.auth',

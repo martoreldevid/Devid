@@ -4,9 +4,9 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
-from .forms import addValutaForm,addCCIAAForm,addDipendenteForm,addRestituzioneForm,addMotPrestitoForm,addTassoInteresseForm,addTipoProvvedimentoForm
+from .forms import addValutaForm,addCCIAAForm,addDipendenteForm,addRestituzioneForm,addMotPrestitoForm,addTassoInteresseForm,addTipoProvvedimentoForm,addPrestitoForm
 
-from CDC.models import TipoMoneta,CCIA,Dipendente,Restituzione,MotPrestito,TassoInteresse,TipoProvvedimento
+from CDC.models import TipoMoneta,CCIA,Dipendente,Restituzione,MotPrestito,TassoInteresse,TipoProvvedimento,Prestito
 from django.db import IntegrityError
 
 def index(request):
@@ -344,3 +344,82 @@ def eliminaTipoProvvedimento(request):
 	request.method="GET"
 	
 	return addTipoProvvedimentoView(request)
+
+
+
+def addPrestitoView(request):
+	
+	if request.method == 'POST':
+
+		form = addPrestitoForm(request.POST)
+			
+		if form.is_valid():		
+			#PERFORM DATA
+
+				
+			cf = request.post.get['cf']			
+			cciaa = request.post.get['cciaa']
+			tipoProvvedimento = request.post.get['tipoProvvedimento']
+			numero = form.cleaned_data['numero']
+			dataProvvedimento = form.cleaned_data['dataProvvedimento']
+			ammontare = form.cleaned_data['ammontare']
+			valuta = request.post.get['valuta']
+			numeroMandato = form.cleaned_data['numeroMandato']
+			dataMandatoPagamento = form.cleaned_data['dataMandatoPagamento']
+			meseAnnoCedolino = form.cleaned_data['meseAnnoCedolino']
+			motivazione = request.post.get['motivazione']
+			modRestituzione = request.post.get['modRestituzione']
+			tasso = requst.post.get['tasso']
+			inEssere = form.cleaned_data['InEssere']
+			dataCessazione = form.cleaned_data['dataCessazione']
+		
+
+			prestito = Prestito(CF=cf,CCIA=cciaa,TipoProvvedimento=tipoProvvedimento,Numero=numero,DataProvvedimento=dataProvvedimento,Ammontare=ammontare,Valuta=valuta,NumeroMandato=numeroMandato,DataMandatoPagamento=dataMandatoPagamento,MeseAnnoCedolino=meseAnnoCedolio,Motivazione=motivazione,ModRestituzione=modRestituzione,Tasso=tasso,InEssere=inEssere,DataCessazione=dataCessazione)
+			
+
+			try:
+				prestito.save()
+			except IntegrityError:
+				pass
+				
+			request.method="GET"
+
+			return addPrestitoView(request)
+	
+	else:
+
+		form = addPrestitoForm()
+		
+
+
+		listaCf = Dipendente.objects.all()
+		listaCCIAA = CCIA.objects.all()
+		listaProv = TipoProvvedimento.objects.all()
+		listaValuta = TipoMoneta.objects.all()
+		listaMotivazioni = MotPrestito.objects.all()
+		listaModRest = Restituzione.objects.all()
+		listaTassi = TassoInteresse.objects.all()
+	
+		context = {
+			'listaCf': listaCf,
+			'listaCCIAA': listaCCIAA,
+			'listaProv': listaProv,
+			'listaValuta': listaValuta,
+			'listaMotivazioni': listaMotivzioni,
+			'listaModRes': listaModRes,
+			'listaTassi': listaTassi,
+			'form':form,		
+		}
+		
+		return render(request, 'CDC/addTipoPrestitoView.html',context)
+
+
+def eliminaPrestito(request):
+
+	varId = request.POST.get('id')
+		
+	Prestito.objects.filter(id=varID).delete()
+
+	request.method="GET"
+	
+	return addTipoPrestitoView(request)
