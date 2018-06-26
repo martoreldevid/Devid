@@ -405,7 +405,7 @@ def addPrestitoView(request):
 			'listaCCIAA': listaCCIAA,
 			'listaProv': listaProv,
 			'listaValuta': listaValuta,
-			'listaMotivazioni': listaMotivzioni,
+			'listaMotivazioni': listaMotivazioni,
 			'listaModRes': listaModRes,
 			'listaTassi': listaTassi,
 			'form':form,		
