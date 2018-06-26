@@ -406,12 +406,12 @@ def addPrestitoView(request):
 			'listaProv': listaProv,
 			'listaValuta': listaValuta,
 			'listaMotivazioni': listaMotivazioni,
-			'listaModRes': listaModRes,
+			'listaModRest': listaModRest,
 			'listaTassi': listaTassi,
-			'form':form,		
+			'form': form,		
 		}
 		
-		return render(request, 'CDC/addTipoPrestitoView.html',context)
+		return render(request, 'CDC/addPrestitoView.html',context)
 
 
 def eliminaPrestito(request):
