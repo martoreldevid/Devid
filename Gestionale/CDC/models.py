@@ -47,7 +47,7 @@ class Prestito(models.Model):
 	TipoProvvedimento = models.ForeignKey(TipoProvvedimento, on_delete=models.DO_NOTHING,null=True)
 	Numero = models.PositiveIntegerField(null=True)
 	DataProvvedimento = models.DateField(auto_now=False, auto_now_add=False,null=True)
-	Ammontare = models.DecimalField(max_digits=5, decimal_places=2,null=True)
+	Ammontare = models.DecimalField(max_digits=15, decimal_places=2,null=True)
 	Valuta = models.ForeignKey(TipoMoneta, on_delete=models.DO_NOTHING,null=True)
 	NumeroMandato = models.PositiveIntegerField(null=True)
 	DataMandatoPagamento = models.DateField(auto_now=False, auto_now_add=False,null=True)

@@ -3,7 +3,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-	path('', views.index, name='index'),
+	path('', views.login, name='viewLogin'),
+	path('logoutView', views.logoutView, name='logoutView'),
+	path('viewLogin',views.login, name='viewLogin'),
 	path('index',views.index,name='index'),
 	path('addValutaView',views.addValutaView,name='addValutaView'),
 	path('eliminaMoneta',views.eliminaMoneta,name='eliiminaMoneta'),
@@ -21,5 +23,5 @@ urlpatterns = [
 	path('eliminaTipoProvvedimento', views.eliminaTipoProvvedimento,name='eliminaTipoProvvedimento'),
 	path('addPrestitoView', views.addPrestitoView,name='addPrestitoView'),
 	path('eliminaPrestito', views.eliminaPrestito,name='eliminaPrestito'),
-	path('viewPrestitoElaborato', views.PrestitoElaborato,name='PrestitoElaborato'),
+	path('viewPrestito', views.PrestitoElaborato,name='PrestitoElaborato'),
 ]

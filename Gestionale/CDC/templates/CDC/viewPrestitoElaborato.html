@@ -4,40 +4,30 @@
 	<body>
 		
 		<h1>ID: {{prestito.id}}</h1><br>
-		<h1>Nominativo: {{Nominativo}}</h1><br>
-		<h1>CCIAA che ha concesso il prestito: {{prestito.CCIA}}</h1><br>
-		<h1>Tipologia di provvedimento di concessione: {{prestito.TipoProvvedimento}}</h1><br>
+		<h1>Nominativo: {{Cognome}} &nbsp {{Nome}}</h1><br>
+		<h1>CCIAA che ha concesso il prestito: {{prestito.CCIA.Sede}}</h1><br>
+		<h1>Tipologia di provvedimento di concessione: {{prestito.TipoProvvedimento.Tipo}}</h1><br>
 		<h1>Numero: {{prestito.Numero}}</h1><br>
 		<h1>Data Provvedimento: {{prestito.DataProvvedimento}}</h1><br>
 		<h1>Ammontare anticipazione: {{prestito.Ammontare}}</h1><br>
-		<h1>Valuta: {{Valuta}}</h1><br>
+		<h1>Valuta: {{prestito.Valuta.Simbolo}}</h1><br>
 		<h1>Numero mandato: {{prestito.NumeroMandato}}</h1><br>
 		<h1>Data mandato pagamento: {{prestito.DataMandatoPagamento}}</h1><br>
 		<h1>Mese/Anno cedolino pagamento: {{prestito.MeseAnnoCedolino}}</h1><br>
-		<h1>Motivo Prestito: {{prestito.Motivazione}}</h1><br>
-		<h1>Modalità restituzione del prestito: {{prestito.ModRestituzione}}</h1><br>
-		<h1>tasso di interesse: {{Tasso}}</h1><br>
+		<h1>Motivo Prestito: {{prestito.Motivazione.Motivazione}}</h1><br>
+		<h1>Modalità restituzione del prestito: {{prestito.ModRestituzione.Tipo}}</h1><br>
+		<h1>tasso di interesse: {{prestito.Tasso.Tipo}}</h1><br>
                 <h1>In essere: {{prestito.InEssere}}</h1><br>
                 <h1>Data di cessazione: {{prestito.DataCessazione}}</h1><br>
 
 		<h1>Elaborati:</h1><br>
-                <h1>Conversione valuta in euro dell`ammontare anticipazione: {{Credito}}</h1><br>
                 <h1>Data inizio calcolo interessi: {{InizioCalcolo}}</h1><br>
                 <h1>Data fine calcolo interessi: {{FineCalcolo}}</h1><br>
-                <h1>Interessi mensili 5%: {{InteressiFascia5}}</h1><br>
-                <h1>Interessi mensili 3,5%: {{InteressiFascia3}}</h1><br>
-                <h1>Interessi mensili 1,5%: {{InteressiFascia1}}</h1><br>
+                <h1>Interessi mensili 5%:{% if InteressiFascia5 %} {{InteressiFascia5}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</h1><br>
+                <h1>Interessi mensili 3,5%: {% if InteressiFascia3 %} {{InteressiFascia3}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</h1><br>
+                <h1>Interessi mensili 1,5%: {% if InteressiFascia1 %} {{InteressiFascia1}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</h1><br>
                 <h1>Interesse annuale del periodo indicato: {{InteressiPeriodo}}</h1><br>
-                <h1>interessi mese finale del periodo: {{InteressiMeseFinale}}</h1><br>
-                
-		<form action="viewPrestitoElaborato" method="post">
-			<input type="date"/>
-			<input type="date"/> 
-			<input type="submit">Aggiorna</input>
-		</form>
-
-
-		<release
+                <h1>interessi mese finale del periodo: {{interessiMeseFinale}}</h1><br>
 
 
 </body>

@@ -11,17 +11,19 @@
         <title>LOGIN</title>
     </head>
 
-<body style="background-color:lightblue">
+<body>
     <center>
-        <div class="p-3 mb-2 bg-white text-dark" style="max-width: 60%; margin-top: 5%; border-style:solid">
+        <div class="p-3 mb-2 bg-white " style="max-width: 60%; margin-top: 5%;">
             <h1>Login</h1>
-            <form action="Login" method="post">
+            <form action="viewLogin" method="post">
+		{% csrf_token %}
+		{{ form }} 
+		<br>
+                <br>
+                <input type="text" name="username" placeholder="Username"/>
                 <br>
                 <br>
-                <input type="text" name="username" style="border-style:solid; border-spacing:1px" placeholder="Username"/>
-                <br>
-                <br>
-                <input type="password" name="password" style="border-style:solid; border-spacing:1px" placeholder="Password"/>
+                <input type="password" name="password" placeholder="Password"/>
                 <br>
                 <br>
                 <button type="submit" class="btn btn-outline-primary" >Login</button>
