@@ -72,17 +72,17 @@
 
 			<button type="submit">Aggiungi Anticipazione</button>
 		</form>
-		{% if listaProvvedimento  %}
+		{% if listaPrestiti  %}
 		<table>
 			 <tr>
  			<th>Tipo</th>
 			<th>Descrizione</th>
 			<th>Elimina</th>
-			{% for provvedimento in listaProvvedimenti %}
+			{% for prestito in listaPrestiti %}
 				<tr>
-					<td>{{ provvedimento.Tipo }}</td>
+					<td><form action="viewPrestito" method="POST" > {% csrf_token %} <button type="submit" value="{{prestito.id}}" name="id">{{prestito.CF}}</button></form></td>
 					<td>{{ provvedimento.Descrizione }}</td>
-					<td><form action="eliminaTipoProvvedimento" method="POST" > {% csrf_token %} <button type="submit" value="{{provvedimento.Tipo}}" name="tipo">Elimina</button></form></td>			
+					<td><form action="eliminaPrestito" method="POST" > {% csrf_token %} <button type="submit" value="{{provvedimento.Tipo}}" name="tipo">Elimina</button></form></td>			
 				</tr>
 			{% endfor %}		
 		</table>
