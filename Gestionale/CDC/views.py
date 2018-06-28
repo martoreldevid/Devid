@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 # Create your views here.
 
+
+from datetime import datetime
+
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
 from .forms import addValutaForm,addCCIAAForm,addDipendenteForm,addRestituzioneForm,addMotPrestitoForm,addTassoInteresseForm,addTipoProvvedimentoForm,addPrestitoForm
@@ -423,3 +426,82 @@ def eliminaPrestito(request):
 	request.method="GET"
 	
 	return addTipoPrestitoView(request)
+
+
+
+def last_day_of_month(any_day):
+    next_month = any_day.replace(day=28) + datetime.timedelta(days=4)  # this will never fail
+    return next_month - datetime.timedelta(days=next_month.day)
+
+
+def days_between(d1, d2):
+    d1 = datetime.strptime(d1, "%Y-%m-%d")
+    d2 = datetime.strptime(d2, "%Y-%m-%d")
+    return abs((d2 - d1).days)
+
+def PrestitoElaborato(request):
+
+	idPrestito = request.POST.get('id')
+	dataInizioCalcolo = request.POST.get('inizioCalcolo')	
+	dataFineCalcolo = request.POST.get('fineCalcolo')
+	
+	prestito =Prestito.objects.filter(id=idPrestito)
+
+	cf = prestito.CF
+	
+	dipendente = Dipendente.objects.filter(CF=cf)
+	Nome = dipendente.Nome
+	Cognome = dipendente.Cognome
+	
+	valuta = prestito.Valuta
+	tipoMoneta = TipoMoneta.objects.filter(Tipo=valuta)
+	Tipo = tipoMoneta.Tipo
+	Simbolo = tipoMoneta.Simbolo
+	
+	tasso = prestito.Tasso
+	tassoInteresse = TassoInteresse.objects.filter(Tipo=tasso)
+	Percentuale = tassoInteresse.Percentuale
+	tipoTasso = tassoInteresse.Tipo
+
+	if( prestito.MeseAnnoCedolino != None)
+		
+		dataInizioAnticipo=last_day_of_month(prestito.MeseAnnoCedolino)
+		dataInizioAnticipo=dataInizioAnticipo+1		
+	
+	else dataInizioAnticipo=prestito.DataMandatoPagamento
+
+	dataFineAnticipo=dataFineCalcolo
+
+	Ammontare = prestito.Ammontare
+	
+	if( prestito.DataCessazione == None) dataCessataAnticipazione=DataFineCalcolo
+	else dataCessataAnticipazione = prestito.DataCessazione
+
+
+	dataInizioFasciaU=datetime.date(2014,12,9)
+	dataFineFasciaU=datetime.date(2900,12,31)	
+
+	if( dataInizioCalcolo>dataInizioFasciaU and dataInizioCalcolo<dataFineFasciaU)
+		
+		interessiMensiliFascia = ((Ammontare*5)/100)/12
+		
+		mesiAppartenentiU = days_between(dataInizioCalcolo,dataFineCalcolo)/30
+	
+	
+
+
+
+	context = {
+			'prestito': prestito,
+			'Nominativo': Cognome,
+			'Tipo': Tipo,
+			'Nome': Nome,
+			'Simbolo': Simbolo,
+			'InizioCalcolo':dataInizioAnticipo,
+			'FineCalcolo': dataFineCalcolo,
+			'InteressiFascia1': interessiMensiliFasciaU,
+		}
+		
+		return render(request, 'CDC/viewPrestitoElaborato.html',context)
+	
+	return addValutaView(request)
