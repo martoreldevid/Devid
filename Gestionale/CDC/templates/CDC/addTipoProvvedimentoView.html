@@ -1,11 +1,11 @@
 <html>
 	<body>
-		<form action="addTipoProvvedimentow" method="post">
+		<form action="addTipoProvvedimentoView" method="post">
 			{% csrf_token %}
 			{{ form }}
 			<button type="submit">Aggiungi Provvedimento</button>
 		</form>
-		{% if listaProvvedimento  %}
+		{% if listaProvvedimenti  %}
 		<table>
 			 <tr>
  			<th>Tipo</th>

@@ -5,10 +5,6 @@ class addValutaForm(forms.Form):
 	simbolo = forms.CharField(label='Simbolo', max_length=1)
 	descrizione = forms.CharField(label='Descrizione', max_length=45)
 
-class eliminaMonetaForm(forms.Form):
-	tipo = forms.CharField(label='Tipo', max_length=20)
-
-
 
 class addCCIAAForm(forms.Form):
 	sede = forms.CharField(label='Sede', max_length=45)
@@ -31,8 +27,6 @@ class addMotPrestitoForm(forms.Form):
 class addTassoInteresseForm(forms.Form):
 	tipo = forms.CharField(label='Tipo', max_length=45)
 	percentuale  = forms.DecimalField(label='Percentuale', max_digits=5,decimal_places=2)
-	inizio = forms.DateField(label='Inizio')
-	fine = forms.DateField(label='Fine')
 
 class addTipoProvvedimentoForm(forms.Form):
 	tipo = forms.CharField(label='Tipo', max_length=45)
@@ -41,11 +35,7 @@ class addTipoProvvedimentoForm(forms.Form):
 class addPrestitoForm(forms.Form):
 	numero = forms.DecimalField(label='Numero', decimal_places=0)
 	percentuale = forms.DecimalField(label='Percentuale', max_digits=10,decimal_places=0)
-	dataProvvedimento = forms.DateField(label='DataProvvedimento')
 	ammontare = forms.DecimalField(label='Ammontare', max_digits=5, decimal_places=2) 
 	numeroMandato = forms.DecimalField(label='NumeroMandato',max_digits=10,decimal_places=0)
-	dataMandatoPagamento = forms.DateField(label='DataMandatoPagamento')
-	meseAnnoCedolino= forms.DateField(label='MeseAnnoCedolino')
-	InEssere = forms.BooleanField()
-	dataCessazione = forms.DateField(label='DataCessazione')
+
 	

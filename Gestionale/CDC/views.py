@@ -43,12 +43,10 @@ def addValutaView(request):
 	else:
 
 		form = addValutaForm()
-		formElimina = eliminaMonetaForm()
 		listaMonete = TipoMoneta.objects.all()
 		context = {
 			'listaMonete': listaMonete,
 			'form':form,		
-			'formElimina':formElimina,
 		}
 		
 		return render(request, 'CDC/addValutaView.html',context)
@@ -173,7 +171,7 @@ def addRestituzioneView(request):
 			tipo  = form.cleaned_data['tipo']
 			descrizione = form.cleaned_data['descrizione']
 
-			restituzione = Restituzione(Tipo=Tipo,Descrizione=descrizione)
+			restituzione = Restituzione(Tipo=tipo,Descrizione=descrizione)
 			try:
 				restituzione.save()
 			except IntegrityError:
@@ -265,8 +263,8 @@ def addTassoInteresseView(request):
 
 			tipo = form.cleaned_data['tipo']
 			percentuale = form.cleaned_data['percentuale']
-			inizio = form.cleaned_data['inizio']
-			fine = form.cleaned_data['fine']
+			inizio = request.POST.get('inizio')
+			fine = request.POST.get('fine')
 
 			tasso = TassoInteresse(Tipo=tipo,Percentuale=percentuale,Inizio=inizio,Fine=fine)
 			
@@ -285,7 +283,7 @@ def addTassoInteresseView(request):
 	
 		listaTassi = TassoInteresse.objects.all()
 		context = {
-			'listaTassiInteresse': listaTassi,
+			'listaTassi': listaTassi,
 			'form':form,		
 		}
 		
@@ -312,7 +310,7 @@ def addTipoProvvedimentoView(request):
 		if form.is_valid():		
 			#PERFORM DATA
 
-			tipo  = form.cleaned_data['cf']
+			tipo  = form.cleaned_data['tipo']
 			descrizione = form.cleaned_data['descrizione']
 			
 			tipoProvvedimento = TipoProvvedimento(Tipo=tipo,Descrizione=descrizione)
@@ -323,7 +321,7 @@ def addTipoProvvedimentoView(request):
 				
 			request.method="GET"
 
-			return addDipendenteView(request)
+			return addTipoProvvedimentoView(request)
 	
 	else:
 
@@ -353,48 +351,32 @@ def eliminaTipoProvvedimento(request):
 def addPrestitoView(request):
 	
 	if request.method == 'POST':
-
 		form = addPrestitoForm(request.POST)
-			
-		if form.is_valid():		
-			#PERFORM DATA
-
-				
-			cf = request.post.get['cf']			
-			cciaa = request.post.get['cciaa']
-			tipoProvvedimento = request.post.get['tipoProvvedimento']
+		if form.is_valid():
+			cf = request.POST.get('cf')			
+			cciaa = request.POST.get('cciaa')
+			tipoProvvedimento = request.POST.get('tipoProvvedimento')
 			numero = form.cleaned_data['numero']
-			dataProvvedimento = form.cleaned_data['dataProvvedimento']
+			dataProvvedimento = request.POST.get('dataProvvedimento')
 			ammontare = form.cleaned_data['ammontare']
-			valuta = request.post.get['valuta']
+			valuta = request.POST.get('valuta')
 			numeroMandato = form.cleaned_data['numeroMandato']
-			dataMandatoPagamento = form.cleaned_data['dataMandatoPagamento']
-			meseAnnoCedolino = form.cleaned_data['meseAnnoCedolino']
-			motivazione = request.post.get['motivazione']
-			modRestituzione = request.post.get['modRestituzione']
-			tasso = requst.post.get['tasso']
-			inEssere = form.cleaned_data['InEssere']
-			dataCessazione = form.cleaned_data['dataCessazione']
-		
-
-			prestito = Prestito(CF=cf,CCIA=cciaa,TipoProvvedimento=tipoProvvedimento,Numero=numero,DataProvvedimento=dataProvvedimento,Ammontare=ammontare,Valuta=valuta,NumeroMandato=numeroMandato,DataMandatoPagamento=dataMandatoPagamento,MeseAnnoCedolino=meseAnnoCedolio,Motivazione=motivazione,ModRestituzione=modRestituzione,Tasso=tasso,InEssere=inEssere,DataCessazione=dataCessazione)
-			
-
+			dataMandatoPagamento = request.POST.get('dataMandatoPagamento')
+			meseAnnoCedolino = request.POST.get('meseAnnoCedolino')
+			motivazione = request.POST.get('motivazione')
+			modRestituzione = request.POST.get('modRestituzione')
+			tasso = requst.POST.get('tasso')
+			dataCessazione = request.POST.get('dataCessazione')
+			prestito = Prestito(CF=cf,CCIA=cciaa,TipoProvvedimento=tipoProvvedimento,Numero=numero,DataProvvedimento=dataProvvedimento,Ammontare=ammontare,Valuta=valuta,NumeroMandato=numeroMandato,DataMandatoPagamento=dataMandatoPagamento,MeseAnnoCedolino=meseAnnoCedolio,Motivazione=motivazione,ModRestituzione=modRestituzione,Tasso=tasso,InEssere=False,DataCessazione=dataCessazione)
 			try:
 				prestito.save()
 			except IntegrityError:
 				pass
-				
 			request.method="GET"
-
 			return addPrestitoView(request)
-	
+
 	else:
-
-		form = addPrestitoForm()
-		
-
-
+		form = addPrestitoForm()	
 		listaCf = Dipendente.objects.all()
 		listaCCIAA = CCIA.objects.all()
 		listaProv = TipoProvvedimento.objects.all()
@@ -402,7 +384,7 @@ def addPrestitoView(request):
 		listaMotivazioni = MotPrestito.objects.all()
 		listaModRest = Restituzione.objects.all()
 		listaTassi = TassoInteresse.objects.all()
-	
+		listaPrestiti = Prestito.objects.all()
 		context = {
 			'listaCf': listaCf,
 			'listaCCIAA': listaCCIAA,
@@ -411,9 +393,9 @@ def addPrestitoView(request):
 			'listaMotivazioni': listaMotivazioni,
 			'listaModRest': listaModRest,
 			'listaTassi': listaTassi,
-			'form': form,		
+			'form': form,
+			'listaPrestiti': listaPrestiti,		
 		}
-		
 		return render(request, 'CDC/addPrestitoView.html',context)
 
 
@@ -425,7 +407,7 @@ def eliminaPrestito(request):
 
 	request.method="GET"
 	
-	return addTipoPrestitoView(request)
+	return addPrestitoView(request)
 
 
 
@@ -463,28 +445,26 @@ def PrestitoElaborato(request):
 	Percentuale = tassoInteresse.Percentuale
 	tipoTasso = tassoInteresse.Tipo
 
-	if( prestito.MeseAnnoCedolino != None)
+	if( prestito.MeseAnnoCedolino >0):
 		
 		dataInizioAnticipo=last_day_of_month(prestito.MeseAnnoCedolino)
 		dataInizioAnticipo=dataInizioAnticipo+1		
 	
-	else dataInizioAnticipo=prestito.DataMandatoPagamento
+	else: dataInizioAnticipo=prestito.DataMandatoPagamento
 
 	dataFineAnticipo=dataFineCalcolo
 
 	Ammontare = prestito.Ammontare
 	
-	if( prestito.DataCessazione == None) dataCessataAnticipazione=DataFineCalcolo
-	else dataCessataAnticipazione = prestito.DataCessazione
+	if( prestito.DataCessazione == None): dataCessataAnticipazione=DataFineCalcolo
+	else: dataCessataAnticipazione = prestito.DataCessazione
 
 
 	dataInizioFasciaU=datetime.date(2014,12,9)
 	dataFineFasciaU=datetime.date(2900,12,31)	
 
-	if( dataInizioCalcolo>dataInizioFasciaU and dataInizioCalcolo<dataFineFasciaU)
-		
+	if( dataInizioCalcolo>dataInizioFasciaU and dataInizioCalcolo<dataFineFasciaU):
 		interessiMensiliFascia = ((Ammontare*5)/100)/12
-		
 		mesiAppartenentiU = days_between(dataInizioCalcolo,dataFineCalcolo)/30
 	
 	
@@ -502,6 +482,5 @@ def PrestitoElaborato(request):
 			'InteressiFascia1': interessiMensiliFasciaU,
 		}
 		
-		return render(request, 'CDC/viewPrestitoElaborato.html',context)
+	return render(request, 'CDC/viewPrestitoElaborato.html',context)
 	
-	return addValutaView(request)

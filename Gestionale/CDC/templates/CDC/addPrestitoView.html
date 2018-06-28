@@ -1,9 +1,13 @@
 <html>
 	<body>
-		<form action="addTipoProvvedimentow" method="post">
+		<form action="addPrestitoView" method="post">
 			{% csrf_token %}
 			{{ form }}
-			
+						
+			Data Provvedimento:<input type="date" name="dataProvvedimento" placeholder="dataProvvedimento"/>
+			Data Mandato Pagamento:<input type="date" name="dataMandatoPagamento" placeholder="dataMandatoPagamento"/>
+			Mese Anno Cedolino (impostare per convenzione il 27 del mese):<input type="date" name="meseAnnoCedolino" placeholder="meseAnnoCedolino"/>			
+			Data Cessazione: <input type="date" name="dataCessazione" placeholder="dataCessazione"/>	
 			<select name="cf">
 				{% for cf in listaCf %}
 
@@ -72,7 +76,7 @@
 
 			<button type="submit">Aggiungi Anticipazione</button>
 		</form>
-		{% if listaPrestiti  %}
+		{% if listaPrestiti %}
 
 		<table>
 			 <tr>

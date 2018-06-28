@@ -1,7 +1,7 @@
 
 <html>
 	<body>
-		<form action="addValutaView" method="post">
+		<form action="addRestituzioneView" method="post">
 			{% csrf_token %}
 			{{ form }}
 			<button type="submit">Aggiungi Metodo di Restituzione</button>
@@ -15,7 +15,7 @@
 			{% for restituzione in listaRestituzioni %}
 				<tr>
 					<td>{{ restituzione.Tipo }}</td>
-					<td>{{ moneta.Descrizione }}</td>
+					<td>{{ restituzione.Descrizione }}</td>
 					<td><form action="eliminaRestituzione" method="POST" > {% csrf_token %} <button type="submit" value="{{restituzione.Tipo}}" name="tipo">Elimina</button></form></td>			
 				</tr>
 			{% endfor %}		
