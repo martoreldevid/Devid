@@ -1,13 +1,24 @@
 <html>
-	<body>
+	<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Anticipazioni</title>
+    </head><body>
+<div style="margin-top:5%">
+		<form action="index"><button type="submit" class="btn btn-dark">INDIETRO</button>
+		</form>
+		<center><br>
 		<form action="addPrestitoView" method="post">
 			{% csrf_token %}
 			{{ form }}
 						
-			Data Provvedimento:<input type="date" name="dataProvvedimento" placeholder="dataProvvedimento"/>
-			Data Mandato Pagamento:<input type="date" name="dataMandatoPagamento" placeholder="dataMandatoPagamento"/>
-			Mese Anno Cedolino (impostare per convenzione il 27 del mese):<input type="date" name="meseAnnoCedolino" placeholder="meseAnnoCedolino"/>			
-			Data Cessazione: <input type="date" name="dataCessazione" placeholder="dataCessazione"/>	
+			Data Provvedimento:<input type="date" name="dataProvvedimento" placeholder="dataProvvedimento"/><br>
+			Data Mandato Pagamento:<input type="date" name="dataMandatoPagamento" placeholder="dataMandatoPagamento"/><br>
+			Mese Anno Cedolino (impostare per convenzione il 27 del mese):<input type="date" name="meseAnnoCedolino" placeholder="meseAnnoCedolino"/><br>			
+			Data Cessazione: <input type="date" name="dataCessazione" placeholder="dataCessazione"/><br>	
 			<select name="cf">
 				{% for cf in listaCf %}
 
@@ -74,20 +85,23 @@
 
 
 
-			<button type="submit">Aggiungi Anticipazione</button>
+			<button type="submit" class="btn btn-outline-primary">Aggiungi Anticipazione</button>
 		</form>
 		{% if listaPrestiti %}
 
-		<table>
+				<table class="table">
+			<thead class="thead-dark">
 			 <tr>
- 			<th>Tipo</th>
-			<th>Descrizione</th>
+ 			<th>ID</th>
+			<th>Nominativo</th>
 			<th>Elimina</th>
+		</tr>			
+</thead>
 			{% for prestito in listaPrestiti %}
 				<tr>
-					<td><form action="viewPrestito" method="POST" > {% csrf_token %} <button type="submit" value="{{prestito.id}}" name="id">{{prestito.CF}}</button></form></td>
-					<td>{{ provvedimento.Descrizione }}</td>
-					<td><form action="eliminaPrestito" method="POST" > {% csrf_token %} <button type="submit" value="{{provvedimento.Tipo}}" name="tipo">Elimina</button></form></td>			
+					<td><form action="dataDaElaborare" method="POST" > {% csrf_token %} <button type="submit" value="{{prestito.id}}" name="id" class="btn btn-outline-success">{{prestito.id}}</button></form></td>
+					<td>{{ prestito.CF.Cognome }} {{prestito.CF.Nome}}</td>
+					<td><form action="eliminaPrestito" method="POST" > {% csrf_token %} <button type="submit" value="{{provvedimento.Tipo}}" name="tipo" class="btn btn-outline-danger">Elimina</button></form></td>			
 				</tr>
 			{% endfor %}		
 		</table>

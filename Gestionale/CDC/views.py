@@ -462,11 +462,12 @@ def days_between(d1, d2):
 def PrestitoElaborato(request):
 
 	idPrestito = request.POST.get('id')
-	#dataInizioCalcolo = request.POST.get('inizioCalcolo')	
-	#dataFineCalcolo = request.POST.get('fineCalcolo')
-	
-	dataInizioCalcolo= datetime(2015,1,1)
-	dataFineCalcolo =  datetime(2017,12,31)
+	dataInizioCalcolo = request.POST.get('inizioCalcolo')	
+	dataFineCalcolo = request.POST.get('fineCalcolo')
+	dataInizioCalcolo = datetime.strptime(dataInizioCalcolo,'%Y-%m-%d')
+	dataFineCalcolo = datetime.strptime(dataFineCalcolo,'%Y-%m-%d')
+	#dataInizioCalcolo= datetime(2015,1,1)
+	#dataFineCalcolo =  datetime(2017,12,31)
 
 	prestito =Prestito.objects.filter(id=idPrestito)[0]
 
@@ -532,3 +533,19 @@ def PrestitoElaborato(request):
 		
 	return render(request, 'CDC/viewPrestitoElaborato.html',context)
 	
+@login_required
+def dataDaElaborare(request):
+	
+	if request.method == 'POST':
+
+			id  = request.POST.get('id')
+							
+			request.method="GET"
+			context={
+			'id':id,
+			}
+
+			return render(request, 'CDC/dataDaElaborare.html',context)
+	
+	else:
+		return addPrestitoView(request)

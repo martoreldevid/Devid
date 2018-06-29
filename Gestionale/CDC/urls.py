@@ -24,4 +24,5 @@ urlpatterns = [
 	path('addPrestitoView', views.addPrestitoView,name='addPrestitoView'),
 	path('eliminaPrestito', views.eliminaPrestito,name='eliminaPrestito'),
 	path('viewPrestito', views.PrestitoElaborato,name='PrestitoElaborato'),
+	path('dataDaElaborare', views.dataDaElaborare,name='dataDaElaborare'),
 ]

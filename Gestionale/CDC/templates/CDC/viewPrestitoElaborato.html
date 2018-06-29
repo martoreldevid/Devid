@@ -1,33 +1,66 @@
 
 
 <html>
-	<body>
-		
-		<h1>ID: {{prestito.id}}</h1><br>
-		<h1>Nominativo: {{Cognome}} &nbsp {{Nome}}</h1><br>
-		<h1>CCIAA che ha concesso il prestito: {{prestito.CCIA.Sede}}</h1><br>
-		<h1>Tipologia di provvedimento di concessione: {{prestito.TipoProvvedimento.Tipo}}</h1><br>
-		<h1>Numero: {{prestito.Numero}}</h1><br>
-		<h1>Data Provvedimento: {{prestito.DataProvvedimento}}</h1><br>
-		<h1>Ammontare anticipazione: {{prestito.Ammontare}}</h1><br>
-		<h1>Valuta: {{prestito.Valuta.Simbolo}}</h1><br>
-		<h1>Numero mandato: {{prestito.NumeroMandato}}</h1><br>
-		<h1>Data mandato pagamento: {{prestito.DataMandatoPagamento}}</h1><br>
-		<h1>Mese/Anno cedolino pagamento: {{prestito.MeseAnnoCedolino}}</h1><br>
-		<h1>Motivo Prestito: {{prestito.Motivazione.Motivazione}}</h1><br>
-		<h1>Modalità restituzione del prestito: {{prestito.ModRestituzione.Tipo}}</h1><br>
-		<h1>tasso di interesse: {{prestito.Tasso.Tipo}}</h1><br>
-                <h1>In essere: {{prestito.InEssere}}</h1><br>
-                <h1>Data di cessazione: {{prestito.DataCessazione}}</h1><br>
+	<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Visualizza Anticipazione {{prestito.id}}</title>
+    </head>
 
-		<h1>Elaborati:</h1><br>
-                <h1>Data inizio calcolo interessi: {{InizioCalcolo}}</h1><br>
-                <h1>Data fine calcolo interessi: {{FineCalcolo}}</h1><br>
-                <h1>Interessi mensili 5%:{% if InteressiFascia5 %} {{InteressiFascia5}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</h1><br>
-                <h1>Interessi mensili 3,5%: {% if InteressiFascia3 %} {{InteressiFascia3}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</h1><br>
-                <h1>Interessi mensili 1,5%: {% if InteressiFascia1 %} {{InteressiFascia1}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</h1><br>
-                <h1>Interesse annuale del periodo indicato: {{InteressiPeriodo}}</h1><br>
-                <h1>interessi mese finale del periodo: {{interessiMeseFinale}}</h1><br>
+	<body>
+<div style="margin-top:5%">
+		<form action="addPrestitoView"><button type="submit" class="btn btn-dark">INDIETRO</button>
+		</form>
+		<center><br>		
+		ID: {{prestito.id}}</h1><br>
+		Nominativo: {{Cognome}} &nbsp {{Nome}}</h1><br>
+		CCIAA che ha concesso il prestito: {{prestito.CCIA.Sede}}</h1><br>
+		Tipologia di provvedimento di concessione: {{prestito.TipoProvvedimento.Tipo}}</h1><br>
+		Numero: {{prestito.Numero}}</h1><br>
+		Data Provvedimento: {{prestito.DataProvvedimento}}</h1><br>
+		Ammontare anticipazione: {{prestito.Ammontare}}</h1><br>
+		Valuta: {{prestito.Valuta.Simbolo}}</h1><br>
+		Numero mandato: {{prestito.NumeroMandato}}</h1><br>
+		Data mandato pagamento: {{prestito.DataMandatoPagamento}}</h1><br>
+		Mese/Anno cedolino pagamento: {{prestito.MeseAnnoCedolino}}</h1><br>
+		Motivo Prestito: {{prestito.Motivazione.Motivazione}}</h1><br>
+		Modalità restituzione del prestito: {{prestito.ModRestituzione.Tipo}}</h1><br>
+		Tasso di interesse: {{prestito.Tasso.Tipo}}</h1><br>
+                In essere: {{prestito.InEssere}}</h1><br>
+                Data di cessazione: {{prestito.DataCessazione}}</h1><br>
+		<br>
+		
+		<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center; vertical-align: middle;">Elaborati:</th>
+    </tr>
+  </thead>
+<tbody>
+    <tr>
+      <th scope="row" style="text-align: center; vertical-align: middle;">Data inizio calcolo interessi: {{InizioCalcolo}}</th>
+    </tr>
+<tr>
+      <th scope="row" style="text-align: center; vertical-align: middle;">Data fine calcolo interessi: {{FineCalcolo}}</th>
+    </tr>
+<tr>
+      <th scope="row" style="text-align: center; vertical-align: middle;">Interessi mensili 5%:{% if InteressiFascia5 %} {{InteressiFascia5}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</th>
+    </tr>
+<tr>
+      <th scope="row" style="text-align: center; vertical-align: middle;">Interessi mensili 3,5%: {% if InteressiFascia3 %} {{InteressiFascia3}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</th>
+    </tr>
+<tr>
+      <th scope="row" style="text-align: center; vertical-align: middle;">Interessi mensili 1,5%: {% if InteressiFascia1 %} {{InteressiFascia1}} {% else %} 0 {% endif %}{{prestito.Valuta.Simbolo}}</th>
+    </tr>
+<tr>
+      <th scope="row" style="text-align: center; vertical-align: middle;">Interesse annuale del periodo indicato: {{InteressiPeriodo}} {{prestito.Valuta.Simbolo}}</th>
+    </tr>
+<tr>
+      <th scope="row" style="text-align: center; vertical-align: middle;">interessi mese finale del periodo: {{interessiMeseFinale}} {{prestito.Valuta.Simbolo}}</th>
+    </tr>
 
 
 </body>
